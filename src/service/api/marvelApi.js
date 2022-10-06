@@ -18,11 +18,15 @@ const params = {
 
 const marvelAPI = axios.create({
   baseURL: baseURL,
-  params,
 });
 
-export const getCharacters = async () => {
-  const response = await marvelAPI.get(`${baseURL}/characters`);
+export const getCharacters = async (nameStartsWith) => {
+  const response = await marvelAPI.get(`${baseURL}/characters`, {
+    params: {
+      ...params,
+      nameStartsWith: nameStartsWith ? nameStartsWith : undefined,
+    },
+  });
   const characters = response.data.data.results;
   return characters;
 };

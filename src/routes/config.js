@@ -1,11 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import { getCharacters } from "../service/api/marvelApi";
-import Characters from "./characters";
+import Root, { loader as rootLoader } from "./root";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Characters />,
-    loader: getCharacters,
+    element: <Root />,
+    loader: rootLoader,
   },
 ]);
