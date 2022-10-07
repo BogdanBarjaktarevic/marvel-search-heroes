@@ -1,16 +1,35 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
+
 const SearchCharacters = () => {
+  const [val, setVal] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
-  const searchTerm = searchParams.get("q") || "";
+  const searchTerm = searchParams.get("q");
+  const isFirstSearch = searchTerm === null;
+  const defVal = useDebounce(val, 1000);
 
   useEffect(() => {
-    document.getElementById("q").value = searchTerm;
-  }, [searchTerm]);
+    if (defVal || !isFirstSearch) {
+      setSearchParams({ q: defVal });
+    }
+  }, [defVal]);
 
   const handleOnChange = (event) => {
-    setSearchParams({ q: event.target.value });
+    setVal(event.target.value);
   };
 
   return (
