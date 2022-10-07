@@ -1,31 +1,48 @@
-import { useEffect } from "react";
-import { Form, useLoaderData, useSubmit } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+  return debouncedValue;
+}
 
 const SearchCharacters = () => {
-  const { q } = useLoaderData();
-  const submit = useSubmit();
+  const [val, setVal] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchTerm = searchParams.get("q");
+  const isFirstSearch = searchTerm === null;
+  const defVal = useDebounce(val, 1000);
 
   useEffect(() => {
-    document.getElementById("q").value = q;
-  }, [q]);
+    if (defVal || !isFirstSearch) {
+      setSearchParams({ q: defVal });
+    }
+  }, [defVal]);
 
   const handleOnChange = (event) => {
-    submit(event.currentTarget.form);
+    setVal(event.target.value);
   };
 
   return (
     <div>
-      <Form id="search-form" role="search">
-        <input
-          id="q"
-          aria-label="Search contacts"
-          placeholder="Search"
-          type="search"
-          name="q"
-          defaultValue={q}
-          onChange={handleOnChange}
-        />
-      </Form>
+      <input
+        id="q"
+        aria-label="Search contacts"
+        placeholder="Search"
+        type="search"
+        name="q"
+        defaultValue={searchTerm}
+        onChange={handleOnChange}
+      />
     </div>
   );
 };
