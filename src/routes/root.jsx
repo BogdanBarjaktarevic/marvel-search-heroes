@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Characters from "../components/characters";
 import SearchCharacters from "../components/searchCharacters";
 import { getCharacters } from "../service/api/marvelApi";
@@ -11,9 +10,6 @@ export async function loader({ request }) {
 }
 
 const Root = () => {
-  const [query, setQuery] = useState("");
-  console.log("~ query", query);
-
   return (
     <div
       style={{
@@ -23,7 +19,7 @@ const Root = () => {
       }}
     >
       <h1>Marvel Heroes</h1>
-      <SearchCharacters setQuery={setQuery} />
+      <SearchCharacters />
       <Characters />
     </div>
   );
