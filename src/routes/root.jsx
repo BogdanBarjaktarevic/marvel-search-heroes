@@ -1,15 +1,22 @@
+import { Suspense, useState } from "react";
+import useSWR from "swr";
+import { getCharacters } from "../service/api/marvelApi";
 import Characters from "../components/characters";
 import SearchCharacters from "../components/searchCharacters";
-import { getCharacters } from "../service/api/marvelApi";
-
-export async function loader({ request }) {
-  const url = new URL(request.url);
-  const q = url.searchParams.get("q");
-  const characters = await getCharacters(q);
-  return { characters, q };
-}
+import { useDebounce } from "../hooks/useDebounce";
 
 const Root = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const defferedTerm = useDebounce(searchTerm, 500);
+
+  const { data: characters } = useSWR(
+    ["/characters", defferedTerm],
+    getCharacters,
+    {
+      suspense: true,
+    }
+  );
+
   return (
     <div
       style={{
@@ -19,8 +26,10 @@ const Root = () => {
       }}
     >
       <h1>Marvel Heroes</h1>
-      <SearchCharacters />
-      <Characters />
+      <SearchCharacters searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Characters characters={characters} />
+      </Suspense>
     </div>
   );
 };

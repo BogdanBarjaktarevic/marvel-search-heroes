@@ -1,8 +1,4 @@
-import { useLoaderData } from "react-router-dom";
-
-const Characters = () => {
-  const { characters } = useLoaderData();
-
+const Characters = ({ characters }) => {
   return (
     <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
       {characters.map((character) => (
