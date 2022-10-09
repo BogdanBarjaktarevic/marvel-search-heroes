@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import {
   Form,
   useLoaderData,
@@ -14,10 +13,6 @@ const SearchCharacters = () => {
   const searching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
-
-  useEffect(() => {
-    document.getElementById("q").value = q;
-  }, [q]);
 
   const handleOnChange = (event) => {
     const isFirstSearch = q == null;
