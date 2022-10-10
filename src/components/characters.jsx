@@ -1,4 +1,15 @@
-const Characters = ({ characters }) => {
+import useSWR from "swr";
+import { getCharacters } from "../service/api/marvelApi";
+
+const Characters = ({ searchTerm }) => {
+  const { data: characters } = useSWR(
+    ["/characters", searchTerm],
+    getCharacters,
+    {
+      suspense: true,
+    }
+  );
+
   return (
     <div style={{ display: "flex", gap: "20px", flexWrap: "wrap" }}>
       {characters.map((character) => (

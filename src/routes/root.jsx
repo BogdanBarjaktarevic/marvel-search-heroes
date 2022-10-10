@@ -1,21 +1,11 @@
 import { Suspense, useState } from "react";
-import useSWR from "swr";
-import { getCharacters } from "../service/api/marvelApi";
 import Characters from "../components/characters";
 import SearchCharacters from "../components/searchCharacters";
 import { useDebounce } from "../hooks/useDebounce";
 
 const Root = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const defferedTerm = useDebounce(searchTerm, 500);
-
-  const { data: characters } = useSWR(
-    ["/characters", defferedTerm],
-    getCharacters,
-    {
-      suspense: true,
-    }
-  );
+  const debauncedTerm = useDebounce(searchTerm, 500);
 
   return (
     <div
@@ -28,7 +18,7 @@ const Root = () => {
       <h1>Marvel Heroes</h1>
       <SearchCharacters searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <Suspense fallback={<div>Loading...</div>}>
-        <Characters characters={characters} />
+        <Characters searchTerm={debauncedTerm} />
       </Suspense>
     </div>
   );
