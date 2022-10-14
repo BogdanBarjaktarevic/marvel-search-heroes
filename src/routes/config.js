@@ -7,6 +7,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     loader: rootLoader,
+    errorElement: <div>Something went wrong</div>,
   },
   {
     path: "characters/:characterId",
