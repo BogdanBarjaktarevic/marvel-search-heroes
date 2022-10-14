@@ -32,3 +32,12 @@ export const getCharacters = async (nameStartsWith, offset) => {
   const totalCount = response.data.data.total;
   return { characters, totalCount };
 };
+
+export const getCharacter = async (characterId) => {
+  const response = await marvelAPI.get(`${baseURL}/characters/${characterId}`, {
+    params: {
+      ...params,
+    },
+  });
+  return response.data.data.results[0];
+};

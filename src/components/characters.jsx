@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigation } from "react-router-dom";
+import { useLoaderData, useNavigation, Link } from "react-router-dom";
 
 const Characters = () => {
   const { characters } = useLoaderData();
@@ -15,15 +15,17 @@ const Characters = () => {
       }}
     >
       {characters.map((character) => (
-        <div key={character.id}>
-          <h6>{character.name}</h6>
-          <img
-            width="150px"
-            height="150px"
-            src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-            alt={character.name}
-          />
-        </div>
+        <Link key={character.id} to={`/characters/${character.id}`}>
+          <div>
+            <h6>{character.name}</h6>
+            <img
+              width="150px"
+              height="150px"
+              src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+              alt={character.name}
+            />
+          </div>
+        </Link>
       ))}
     </div>
   );

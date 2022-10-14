@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Pagination from "../components/pagination";
+import Character, { loader as characterLoader } from "./character";
 import Root, { loader as rootLoader } from "./root";
 
 export const router = createBrowserRouter([
@@ -7,5 +7,10 @@ export const router = createBrowserRouter([
     path: "/",
     element: <Root />,
     loader: rootLoader,
+  },
+  {
+    path: "characters/:characterId",
+    element: <Character />,
+    loader: characterLoader,
   },
 ]);
