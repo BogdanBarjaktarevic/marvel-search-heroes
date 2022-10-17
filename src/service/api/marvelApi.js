@@ -1,5 +1,6 @@
 import md5 from "md5";
 import axios from "axios";
+import { CHARACTERS_TO_SHOW } from "../../utils/charactersPaginationConfig";
 
 const baseURL = "https://gateway.marvel.com:443/v1/public";
 const ts = new Date().getTime();
@@ -26,6 +27,7 @@ export const getCharacters = async (nameStartsWith, offset) => {
       ...params,
       nameStartsWith: nameStartsWith ? nameStartsWith : undefined,
       offset,
+      limit: CHARACTERS_TO_SHOW || 20,
     },
   });
   const characters = response.data.data.results;
