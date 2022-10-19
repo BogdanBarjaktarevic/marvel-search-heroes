@@ -7,7 +7,7 @@ const Characters = () => {
 
   return (
     <div
-      className={`grid grid-cols-5 gap-3 grid-rows-4 ${
+      className={`grid lg:grid-cols-4 gap-3 grid-rows-5 md:grid-cols-2 grid-rows-10  ${
         isLoading ? "opacity-25" : "opacity-100"
       }`}
     >
@@ -86,7 +86,6 @@ const Characters = () => {
                   </svg>
 
                   <span className="text-slate-600 text-xs">
-                    {" "}
                     {character.stories.available}
                   </span>
                 </div>
