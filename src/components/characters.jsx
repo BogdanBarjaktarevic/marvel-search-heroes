@@ -6,7 +6,11 @@ const Characters = () => {
   const isLoading = navigation.state === "loading";
 
   return (
-    <div className="grid grid-cols-5 gap-3 grid-rows-4">
+    <div
+      className={`grid grid-cols-5 gap-3 grid-rows-4 ${
+        isLoading ? "opacity-25" : "opacity-100"
+      }`}
+    >
       {characters.map((character) => (
         <Link key={character.id} to={`/characters/${character.id}`}>
           <div className="shadow-md rounded-md bg-slate-100 hover:brightness-110 h-full w-full flex flex-col">

@@ -19,8 +19,18 @@ export async function loader({ request }) {
 const Root = () => {
   return (
     <div className="bg-slate-200">
-      <Link to="/">Marvel Heroes</Link>
-      <SearchCharacters />
+      <div className="container mx-auto py-6 flex">
+        <div className="flex-1">
+          <Link to="/">
+            <h1 className="text-5xl text-red-500 font-black uppercase">
+              Marvel Heroes
+            </h1>
+          </Link>
+        </div>
+        <div className="flex-1">
+          <SearchCharacters />
+        </div>
+      </div>
       <div className="container mx-auto">
         <Characters />
       </div>
