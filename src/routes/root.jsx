@@ -18,16 +18,12 @@ export async function loader({ request }) {
 
 const Root = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div className="bg-slate-200">
       <Link to="/">Marvel Heroes</Link>
       <SearchCharacters />
-      <Characters />
+      <div className="container mx-auto">
+        <Characters />
+      </div>
       <Pagination paginationHook={useCharactersPagination} />
     </div>
   );
