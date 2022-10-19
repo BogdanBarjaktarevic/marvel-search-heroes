@@ -21,11 +21,9 @@ const Root = () => {
     <div className="bg-slate-200">
       <div className="container mx-auto py-6 flex">
         <div className="flex-1">
-          <Link to="/">
-            <h1 className="text-5xl text-red-500 font-black uppercase">
-              Marvel Heroes
-            </h1>
-          </Link>
+          <h1 className="text-5xl text-red-500 font-black uppercase">
+            <Link to="/">Marvel Heroes</Link>
+          </h1>
         </div>
         <div className="flex-1">
           <SearchCharacters />
