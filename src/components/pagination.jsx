@@ -46,7 +46,9 @@ const Pagination = ({ paginationHook }) => {
         {showPages.map((page) => (
           <button
             className={`px-4 ${
-              parseInt(currentPage) === page ? "border-t-4 border-red-500" : ""
+              parseInt(currentPage) === page
+                ? "border-t-4 border-red-500"
+                : "hover:bg-slate-300"
             }`}
             disabled={parseInt(currentPage) === page}
             key={page}
