@@ -21,15 +21,15 @@ const Root = () => {
     <div className="bg-slate-200">
       <div className="container mx-auto py-6 flex flex-col max-w-sm lg:flex-row md:max-w-md lg:container">
         <div className="flex-1">
-          <h1 className="text-5xl text-red-500 font-black uppercase">
+          <h1 className="text-3xl text-center md:text-left md:text-5xl text-red-500 font-black uppercase">
             <Link to="/">Marvel Heroes</Link>
           </h1>
         </div>
-        <div className="flex-1">
+        <div className="flex-1 ">
           <SearchCharacters />
         </div>
       </div>
-      <div className="container mx-auto">
+      <div className="mx-auto max-w-xs md:container">
         <Characters />
       </div>
       <Pagination paginationHook={useCharactersPagination} />

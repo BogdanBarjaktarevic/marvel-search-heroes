@@ -17,7 +17,7 @@ const Pagination = ({ paginationHook }) => {
   }
 
   return (
-    <div className="flex justify-between items-center container mx-auto border-t py-8">
+    <div className="flex justify-evenly md:justify-between items-center container mx-auto border-t py-8">
       <div>
         {showPrev && (
           <div
@@ -42,7 +42,7 @@ const Pagination = ({ paginationHook }) => {
           </div>
         )}
       </div>
-      <div>
+      <div className="hidden md:block">
         {showPages.map((page) => (
           <button
             className={`px-4 ${
