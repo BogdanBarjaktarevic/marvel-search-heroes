@@ -17,15 +17,27 @@ const useCharactersPagination = () => {
       : pagesArr.splice(currentPage - 1, pagesToShow);
 
   const handleOnPageChange = (page) => {
-    setSearchParams({ page, q });
+    if (q) {
+      setSearchParams({ page, q });
+    } else {
+      setSearchParams({ page });
+    }
   };
 
   const handleNext = () => {
-    setSearchParams({ page: currentPage + 1, q });
+    if (q) {
+      setSearchParams({ page: currentPage + 1, q });
+    } else {
+      setSearchParams({ page: currentPage + 1 });
+    }
   };
 
   const handlePrev = () => {
-    setSearchParams({ page: currentPage - 1, q });
+    if (q) {
+      setSearchParams({ page: currentPage - 1, q });
+    } else {
+      setSearchParams({ page: currentPage - 1 });
+    }
   };
 
   return {

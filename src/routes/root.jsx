@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Characters from "../components/characters";
-import Icon from "../components/icon";
 import Pagination from "../components/pagination";
 import SearchCharacters from "../components/searchCharacters";
 import useCharactersPagination from "../hooks/useCharactersPagination";
