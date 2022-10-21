@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Characters from "../components/characters";
+import Icon from "../components/icon";
 import Pagination from "../components/pagination";
 import SearchCharacters from "../components/searchCharacters";
 import useCharactersPagination from "../hooks/useCharactersPagination";
@@ -17,6 +18,16 @@ export async function loader({ request }) {
 }
 
 const Root = () => {
+  const {
+    pages,
+    handleOnPageChange,
+    currentPage,
+    showNextPrev,
+    totalPages,
+    handleNext,
+    handlePrev,
+  } = useCharactersPagination();
+
   return (
     <div className="bg-slate-200">
       <div className="container mx-auto py-6 flex flex-col max-w-sm lg:flex-row md:max-w-md lg:container">
@@ -32,7 +43,15 @@ const Root = () => {
       <div className="mx-auto max-w-xs md:container">
         <Characters />
       </div>
-      <Pagination paginationHook={useCharactersPagination} />
+      <Pagination
+        pages={pages}
+        onPageChange={handleOnPageChange}
+        currentPage={currentPage}
+        showNextPrev={showNextPrev}
+        total={totalPages}
+        onNext={handleNext}
+        onPrev={handlePrev}
+      />
     </div>
   );
 };

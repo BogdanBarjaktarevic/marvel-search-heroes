@@ -1,18 +1,18 @@
-const Pagination = ({ paginationHook }) => {
-  const {
-    showPages,
-    handleOnPageChange,
-    currentPage,
-    showNextPrev,
-    totalPages,
-    handleNext,
-    handlePrev,
-  } = paginationHook();
+import Icon from "./icon";
 
+const Pagination = ({
+  pages,
+  onPageChange,
+  currentPage,
+  total,
+  onNext,
+  onPrev,
+  showNextPrev,
+}) => {
   const showPrev = showNextPrev && currentPage > 1;
-  const showNext = showNextPrev && currentPage < totalPages;
+  const showNext = showNextPrev && currentPage < total;
 
-  if (currentPage > totalPages) {
+  if (currentPage > total) {
     return null;
   }
 
@@ -22,28 +22,15 @@ const Pagination = ({ paginationHook }) => {
         {showPrev && (
           <div
             className="flex items-center hover:cursor-pointer"
-            onClick={handlePrev}
+            onClick={onPrev}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-              />
-            </svg>
+            <Icon className="w-6 h-6" name="arrowLeft" />
             <span className="ml-2">Prev</span>
           </div>
         )}
       </div>
       <div className="hidden md:block">
-        {showPages.map((page) => (
+        {pages.map((page) => (
           <button
             className={`px-4 ${
               parseInt(currentPage) === page
@@ -52,7 +39,7 @@ const Pagination = ({ paginationHook }) => {
             }`}
             disabled={parseInt(currentPage) === page}
             key={page}
-            onClick={() => handleOnPageChange(page)}
+            onClick={() => onPageChange(page)}
           >
             {page}
           </button>
@@ -62,23 +49,10 @@ const Pagination = ({ paginationHook }) => {
         {showNext && (
           <div
             className="flex items-center hover:cursor-pointer"
-            onClick={handleNext}
+            onClick={onNext}
           >
             <span className="mr-2">Next</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-              />
-            </svg>
+            <Icon className="w-6 h-6" name="arrowRight" />
           </div>
         )}
       </div>

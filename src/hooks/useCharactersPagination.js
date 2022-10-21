@@ -11,7 +11,7 @@ const useCharactersPagination = () => {
 
   const totalPages = Math.round(totalCount / resultsPerPage);
   const pagesArr = Array.from({ length: totalPages }, (_, i) => i + 1);
-  const showPages =
+  const pages =
     currentPage > 1
       ? pagesArr.splice(currentPage - 2, pagesToShow)
       : pagesArr.splice(currentPage - 1, pagesToShow);
@@ -30,7 +30,7 @@ const useCharactersPagination = () => {
 
   return {
     handleOnPageChange,
-    showPages,
+    pages,
     currentPage,
     showNextPrev,
     totalPages,
