@@ -1,6 +1,15 @@
 import { useLoaderData, useNavigation, Link } from "react-router-dom";
 import Icon from "./icon";
 
+const Stats = ({ children, icon }) => {
+  return (
+    <div className="flex flex-col items-center">
+      <Icon className="w-5 h-5 stroke-slate-500" name={icon} />
+      <span className="text-slate-600 text-xs">{children}</span>
+    </div>
+  );
+};
+
 const Characters = () => {
   const { characters } = useLoaderData();
   const navigation = useNavigation();
@@ -33,24 +42,9 @@ const Characters = () => {
               </div>
               <hr className="border-t border-slate-300" />
               <div className="flex justify-between mb-1 pt-2 px-4">
-                <div className="flex flex-col items-center">
-                  <Icon className="w-5 h-5 stroke-slate-500" name="camera" />
-                  <span className="text-slate-600 text-xs">
-                    {character.series.available}
-                  </span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Icon className="w-5 h-5 stroke-slate-500" name="events" />
-                  <span className="text-slate-600 text-xs">
-                    {character.comics.available}
-                  </span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <Icon className="w-5 h-5 stroke-slate-500" name="series" />
-                  <span className="text-slate-600 text-xs">
-                    {character.stories.available}
-                  </span>
-                </div>
+                <Stats icon="camera">{character.series.available}</Stats>
+                <Stats icon="events">{character.comics.available}</Stats>
+                <Stats icon="series">{character.stories.available}</Stats>
               </div>
             </div>
           </div>
