@@ -1,9 +1,24 @@
-import { Form, useLoaderData, useSubmit } from "react-router-dom";
+import { useEffect } from "react";
+import {
+  Form,
+  useLoaderData,
+  useNavigation,
+  useSubmit,
+} from "react-router-dom";
 import Icon from "./icon";
 
 const SearchCharacters = () => {
   const { q } = useLoaderData();
   const submit = useSubmit();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    document.getElementById("q").value = q;
+  }, [q]);
+
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has("q");
 
   const handleOnChange = (event) => {
     const isFirstSearch = q == null;
@@ -23,8 +38,10 @@ const SearchCharacters = () => {
       <div className="relative">
         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <Icon
-            className="w-5 h-5 text-gray-500 dark:text-gray-400"
-            name="search"
+            className={`w-5 h-5 text-gray-500 dark:text-gray-400 ${
+              searching ? "animate-spin" : ""
+            }`}
+            name={searching ? "loading" : "search"}
           />
         </div>
         <input

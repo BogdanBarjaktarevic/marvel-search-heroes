@@ -5,6 +5,7 @@ import { ReactComponent as Camera } from "./icons/camera.svg";
 import { ReactComponent as Series } from "./icons/series.svg";
 import { ReactComponent as Events } from "./icons/events.svg";
 import { ReactComponent as Home } from "./icons/home.svg";
+import { ReactComponent as Loading } from "./icons/loading.svg";
 
 const SvgIcons = {
   search: Search,
@@ -14,6 +15,7 @@ const SvgIcons = {
   events: Events,
   series: Series,
   home: Home,
+  loading: Loading,
 };
 
 export default SvgIcons;
