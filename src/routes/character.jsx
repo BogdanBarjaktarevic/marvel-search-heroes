@@ -1,6 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 import { getCharacter } from "../service/api/marvelApi";
 import Icon from "../components/icon";
+import { useEffect, useState } from "react";
 
 export async function loader({ params }) {
   const character = await getCharacter(params.characterId);
@@ -18,6 +19,32 @@ const Stats = ({ children, text }) => {
 
 const Character = () => {
   const character = useLoaderData();
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("favChars"));
+    if (items[character.id]) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [character.id]);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("favChars")) || {};
+    if (isLiked) {
+      items[character.id] = character;
+      localStorage.setItem("favChars", JSON.stringify(items));
+    } else {
+      delete items[character.id];
+      localStorage.setItem("favChars", JSON.stringify(items));
+    }
+    console.log("items", items);
+  }, [character, isLiked]);
+
+  const handleLiked = () => {
+    setIsLiked(!isLiked);
+  };
 
   return (
     <div className="bg-slate-200 h-screen flex md:justify-center md:items-center mx-auto flex-col">
@@ -38,7 +65,16 @@ const Character = () => {
         </div>
         <div className="grow mt-4 md:mt-0 md:ml-6 flex flex-col justify-between">
           <div>
-            <h5 className="font-bold text-slate-700">{character.name}</h5>
+            <div className="flex items-center justify-between">
+              <h5 className="font-bold text-slate-700">{character.name}</h5>
+              <Icon
+                click={handleLiked}
+                name="liked"
+                className={`w-8 h-8 text-slate-700 hover:cursor-pointer ${
+                  isLiked ? "fill-amber-400" : ""
+                }`}
+              />
+            </div>
             <h5 className="mt-2">Description</h5>
             <p className="text-xs">{character.description}</p>
           </div>

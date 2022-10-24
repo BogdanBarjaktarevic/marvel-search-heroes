@@ -34,6 +34,7 @@ const Root = () => {
           <h1 className="text-3xl text-center md:text-left md:text-5xl text-red-500 font-black uppercase">
             <Link to="/">Marvel Heroes</Link>
           </h1>
+          <Link to="/characters/bookmarked">Favourite</Link>
         </div>
         <div className="flex-1 ">
           <SearchCharacters />
