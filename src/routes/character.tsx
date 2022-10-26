@@ -1,13 +1,21 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, LoaderFunctionArgs } from "react-router-dom";
 import { getCharacter } from "../service/api/marvelApi";
 import Icon from "../components/icon";
+import { CharacterModel } from "../types/character.type";
 
-export async function loader({ params }) {
-  const character = await getCharacter(params.characterId);
-  return character;
+interface StatsProps {
+  text: string;
+  children: React.ReactNode | React.ReactNode[];
 }
 
-const Stats = ({ children, text }) => {
+type LoaderData = { character: CharacterModel };
+
+export const loader = async ({ params }: LoaderFunctionArgs) => {
+  const character: LoaderData = await getCharacter(params.characterId);
+  return { character };
+};
+
+const Stats = ({ children, text }: StatsProps) => {
   return (
     <div className="flex flex-col items-center">
       <span className="mb-2 text-3xl font-extrabold">{children}</span>
@@ -17,7 +25,7 @@ const Stats = ({ children, text }) => {
 };
 
 const Character = () => {
-  const character = useLoaderData();
+  const { character } = useLoaderData() as LoaderData;
 
   return (
     <div className="bg-slate-200 h-screen flex md:justify-center md:items-center mx-auto flex-col">

@@ -21,7 +21,10 @@ const marvelAPI = axios.create({
   baseURL: baseURL,
 });
 
-export const getCharacters = async (nameStartsWith, offset) => {
+export const getCharacters = async (
+  nameStartsWith?: string,
+  offset?: number
+) => {
   const response = await marvelAPI.get(`${baseURL}/characters`, {
     params: {
       ...params,
@@ -35,11 +38,18 @@ export const getCharacters = async (nameStartsWith, offset) => {
   return { characters, totalCount };
 };
 
-export const getCharacter = async (characterId) => {
-  const response = await marvelAPI.get(`${baseURL}/characters/${characterId}`, {
-    params: {
-      ...params,
-    },
-  });
-  return response.data.data.results[0];
+export const getCharacter = async (characterId: string | undefined) => {
+  try {
+    const response = await marvelAPI.get(
+      `${baseURL}/characters/${characterId}`,
+      {
+        params: {
+          ...params,
+        },
+      }
+    );
+    return response.data.data.results[0];
+  } catch (error) {
+    console.error(error);
+  }
 };

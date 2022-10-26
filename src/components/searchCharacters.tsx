@@ -5,22 +5,23 @@ import {
   useNavigation,
   useSubmit,
 } from "react-router-dom";
+import { RootLoaderData } from "../types/character.type";
 import Icon from "./icon";
 
 const SearchCharacters = () => {
-  const { q } = useLoaderData();
+  const { q } = useLoaderData() as RootLoaderData;
   const submit = useSubmit();
   const navigation = useNavigation();
 
   useEffect(() => {
-    document.getElementById("q").value = q;
+    (document.getElementById("q") as HTMLInputElement).value = q;
   }, [q]);
 
   const searching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
 
-  const handleOnChange = (event) => {
+  const handleOnChange = (event: React.FormEvent<HTMLInputElement>) => {
     const isFirstSearch = q == null;
     submit(event.currentTarget.form, {
       replace: !isFirstSearch,

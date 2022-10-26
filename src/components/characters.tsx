@@ -1,7 +1,13 @@
 import { useLoaderData, useNavigation, Link } from "react-router-dom";
+import { RootLoaderData } from "../types/character.type";
 import Icon from "./icon";
 
-const Stats = ({ children, icon }) => {
+interface StatsProps {
+  icon: string;
+  children: React.ReactNode | React.ReactNode[];
+}
+
+const Stats = ({ children, icon }: StatsProps) => {
   return (
     <div className="flex flex-col items-center">
       <Icon className="w-5 h-5 stroke-slate-500" name={icon} />
@@ -11,7 +17,7 @@ const Stats = ({ children, icon }) => {
 };
 
 const Characters = () => {
-  const { characters } = useLoaderData();
+  const { characters } = useLoaderData() as RootLoaderData;
   const navigation = useNavigation();
   const isLoading = navigation.state === "loading";
 
