@@ -17,31 +17,27 @@ const useCharactersPagination = () => {
       ? pagesArr.splice(currentPage - 2, pagesToShow)
       : pagesArr.splice(currentPage - 1, pagesToShow);
 
-  const handleOnPageChange = (page: number) => {
-    const pageParam = page.toString();
+  const setPageParams = (pageParam: string) => {
     if (q) {
       setSearchParams({ page: pageParam, q });
     } else {
       setSearchParams({ page: pageParam });
     }
+  };
+
+  const handleOnPageChange = (page: number) => {
+    const pageParam = page.toString();
+    setPageParams(pageParam);
   };
 
   const handleNext = () => {
     const pageParam = (currentPage + 1).toString();
-    if (q) {
-      setSearchParams({ page: pageParam, q });
-    } else {
-      setSearchParams({ page: pageParam });
-    }
+    setPageParams(pageParam);
   };
 
   const handlePrev = () => {
     const pageParam = (currentPage - 1).toString();
-    if (q) {
-      setSearchParams({ page: pageParam, q });
-    } else {
-      setSearchParams({ page: pageParam });
-    }
+    setPageParams(pageParam);
   };
 
   return {
