@@ -1,10 +1,11 @@
+import { RootLoaderData } from "./../types/character.type";
 import { useLoaderData, useSearchParams } from "react-router-dom";
 import { charactersPaginationConfig } from "../utils/charactersPaginationConfig";
 
 const useCharactersPagination = () => {
-  const { totalCount, q } = useLoaderData();
+  const { totalCount, q } = useLoaderData() as RootLoaderData;
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = parseInt(searchParams.get("page") || 1);
+  const currentPage = +(searchParams?.get("page") || 1);
 
   const { showNextPrev, pagesToShow, resultsPerPage } =
     charactersPaginationConfig;
@@ -16,27 +17,30 @@ const useCharactersPagination = () => {
       ? pagesArr.splice(currentPage - 2, pagesToShow)
       : pagesArr.splice(currentPage - 1, pagesToShow);
 
-  const handleOnPageChange = (page) => {
+  const handleOnPageChange = (page: number) => {
+    const pageParam = page.toString();
     if (q) {
-      setSearchParams({ page, q });
+      setSearchParams({ page: pageParam, q });
     } else {
-      setSearchParams({ page });
+      setSearchParams({ page: pageParam });
     }
   };
 
   const handleNext = () => {
+    const pageParam = (currentPage + 1).toString();
     if (q) {
-      setSearchParams({ page: currentPage + 1, q });
+      setSearchParams({ page: pageParam, q });
     } else {
-      setSearchParams({ page: currentPage + 1 });
+      setSearchParams({ page: pageParam });
     }
   };
 
   const handlePrev = () => {
+    const pageParam = (currentPage - 1).toString();
     if (q) {
-      setSearchParams({ page: currentPage - 1, q });
+      setSearchParams({ page: pageParam, q });
     } else {
-      setSearchParams({ page: currentPage - 1 });
+      setSearchParams({ page: pageParam });
     }
   };
 

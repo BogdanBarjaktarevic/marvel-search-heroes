@@ -1,5 +1,15 @@
 import Icon from "./icon";
 
+interface PaginationProps {
+  pages: number[];
+  onPageChange: (page: number) => void;
+  currentPage: number;
+  total: number;
+  showNextPrev: boolean;
+  onNext: () => void;
+  onPrev: () => void;
+}
+
 const Pagination = ({
   pages,
   onPageChange,
@@ -8,7 +18,7 @@ const Pagination = ({
   onNext,
   onPrev,
   showNextPrev,
-}) => {
+}: PaginationProps) => {
   const showPrev = showNextPrev && currentPage > 1;
   const showNext = showNextPrev && currentPage < total;
 
@@ -33,11 +43,11 @@ const Pagination = ({
         {pages.map((page) => (
           <button
             className={`px-4 ${
-              parseInt(currentPage) === page
+              currentPage === page
                 ? "border-t-4 border-red-500"
                 : "hover:bg-slate-300"
             }`}
-            disabled={parseInt(currentPage) === page}
+            disabled={currentPage === page}
             key={page}
             onClick={() => onPageChange(page)}
           >

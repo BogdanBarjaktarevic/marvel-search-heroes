@@ -1,16 +1,17 @@
 import { useLoaderData, useNavigation, Link } from "react-router-dom";
 import { RootLoaderData } from "../types/character.type";
+import { SvgIconsKeys } from "../types/icon.type";
 import Icon from "./icon";
 
 interface StatsProps {
-  icon: string;
+  iconName: SvgIconsKeys;
   children: React.ReactNode | React.ReactNode[];
 }
 
-const Stats = ({ children, icon }: StatsProps) => {
+const Stats = ({ children, iconName }: StatsProps) => {
   return (
     <div className="flex flex-col items-center">
-      <Icon className="w-5 h-5 stroke-slate-500" name={icon} />
+      <Icon className="w-5 h-5 stroke-slate-500" name={iconName} />
       <span className="text-slate-600 text-xs">{children}</span>
     </div>
   );
@@ -48,9 +49,9 @@ const Characters = () => {
               </div>
               <hr className="border-t border-slate-300" />
               <div className="flex justify-between mb-1 pt-2 px-4">
-                <Stats icon="camera">{character.series.available}</Stats>
-                <Stats icon="events">{character.comics.available}</Stats>
-                <Stats icon="series">{character.stories.available}</Stats>
+                <Stats iconName="camera">{character.series.available}</Stats>
+                <Stats iconName="events">{character.comics.available}</Stats>
+                <Stats iconName="series">{character.stories.available}</Stats>
               </div>
             </div>
           </div>
