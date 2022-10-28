@@ -1,6 +1,7 @@
 import md5 from "md5";
 import axios from "axios";
 import { CHARACTERS_TO_SHOW } from "../../utils/charactersPaginationConfig";
+import { CharacterModel, CharactersModel } from "./../../types/character.type";
 
 const baseURL = "https://gateway.marvel.com:443/v1/public";
 const ts = new Date().getTime();
@@ -24,21 +25,28 @@ const marvelAPI = axios.create({
 export const getCharacters = async (
   nameStartsWith?: string,
   offset?: number
-) => {
-  const response = await marvelAPI.get(`${baseURL}/characters`, {
-    params: {
-      ...params,
-      nameStartsWith: nameStartsWith ? nameStartsWith : undefined,
-      offset,
-      limit: CHARACTERS_TO_SHOW || 20,
-    },
-  });
-  const characters = response.data.data.results;
-  const totalCount = response.data.data.total;
-  return { characters, totalCount };
+): Promise<{ characters: CharactersModel; totalCount: number }> => {
+  try {
+    const response = await marvelAPI.get(`${baseURL}/characters`, {
+      params: {
+        ...params,
+        nameStartsWith: nameStartsWith ? nameStartsWith : undefined,
+        offset,
+        limit: CHARACTERS_TO_SHOW || 20,
+      },
+    });
+    const characters = response.data.data.results;
+    const totalCount = response.data.data.total;
+    return { characters, totalCount };
+  } catch (error: any) {
+    console.error(error);
+    throw new Error(error);
+  }
 };
 
-export const getCharacter = async (characterId: string | undefined) => {
+export const getCharacter = async (
+  characterId: string | undefined
+): Promise<CharacterModel> => {
   try {
     const response = await marvelAPI.get(
       `${baseURL}/characters/${characterId}`,
@@ -49,7 +57,8 @@ export const getCharacter = async (characterId: string | undefined) => {
       }
     );
     return response.data.data.results[0];
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
+    throw new Error(error);
   }
 };

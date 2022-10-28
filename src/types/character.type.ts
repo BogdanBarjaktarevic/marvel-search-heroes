@@ -20,6 +20,10 @@ export interface CharacterModel {
   };
 }
 
+export interface CharactersModel {
+  characters: CharacterModel[];
+}
+
 export type RootLoaderData = {
   characters: CharacterModel[];
   q: string;

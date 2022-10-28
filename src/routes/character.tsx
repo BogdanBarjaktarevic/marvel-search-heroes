@@ -11,7 +11,7 @@ interface StatsProps {
 type LoaderData = { character: CharacterModel };
 
 export const loader = async ({ params }: LoaderFunctionArgs) => {
-  const character: LoaderData = await getCharacter(params.characterId);
+  const character = await getCharacter(params.characterId);
   return { character };
 };
 
