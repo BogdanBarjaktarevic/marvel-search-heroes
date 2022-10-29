@@ -1,5 +1,5 @@
 import md5 from "md5";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { CHARACTERS_TO_SHOW } from "../../utils/charactersPaginationConfig";
 import { CharacterModel, CharactersModel } from "./../../types/character.type";
 
@@ -23,11 +23,14 @@ const marvelAPI = axios.create({
 });
 
 export const getCharacters = async (
-  nameStartsWith?: string,
+  nameStartsWith?: string | undefined,
   offset?: number
 ): Promise<{ characters: CharactersModel; totalCount: number }> => {
   try {
-    const response = await marvelAPI.get(`${baseURL}/characters`, {
+    const response: AxiosResponse<
+      { data: { results: CharactersModel; total: number } },
+      typeof marvelAPI
+    > = await marvelAPI.get(`${baseURL}/characters`, {
       params: {
         ...params,
         nameStartsWith: nameStartsWith ? nameStartsWith : undefined,
@@ -35,8 +38,8 @@ export const getCharacters = async (
         limit: CHARACTERS_TO_SHOW || 20,
       },
     });
-    const characters = response.data.data.results;
-    const totalCount = response.data.data.total;
+    const characters: CharactersModel = response.data.data.results;
+    const totalCount: number = response.data.data.total;
     return { characters, totalCount };
   } catch (error: any) {
     console.error(error);
@@ -48,15 +51,16 @@ export const getCharacter = async (
   characterId: string | undefined
 ): Promise<CharacterModel> => {
   try {
-    const response = await marvelAPI.get(
-      `${baseURL}/characters/${characterId}`,
-      {
-        params: {
-          ...params,
-        },
-      }
-    );
-    return response.data.data.results[0];
+    const response: AxiosResponse<
+      { data: { results: CharacterModel[] } },
+      typeof marvelAPI
+    > = await marvelAPI.get(`${baseURL}/characters/${characterId}`, {
+      params: {
+        ...params,
+      },
+    });
+    const character: CharacterModel = response.data.data.results[0];
+    return character;
   } catch (error: any) {
     console.error(error);
     throw new Error(error);
