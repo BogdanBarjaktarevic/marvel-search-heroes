@@ -46,7 +46,9 @@ const Character = () => {
         </div>
         <div className="grow mt-4 md:mt-0 md:ml-6 flex flex-col justify-between">
           <div>
-            <h5 className="font-bold text-slate-700">{character.name}</h5>
+            <h5 className="font-bold text-slate-700 uppercase">
+              {character.name}
+            </h5>
             <h5 className="mt-2">Description</h5>
             <p className="text-xs">{character.description}</p>
           </div>

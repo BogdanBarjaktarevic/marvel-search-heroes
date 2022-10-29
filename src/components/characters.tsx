@@ -40,7 +40,9 @@ const Characters = () => {
             </div>
             <div className="flex flex-1 flex-col justify-between">
               <div className="mb-6 pt-4 px-4">
-                <h5 className="font-bold text-slate-700">{character.name}</h5>
+                <h5 className="font-bold text-slate-700 uppercase">
+                  {character.name}
+                </h5>
                 <p className="text-xs">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Aperiam nulla ea facilis repellendus rem? Ad esse eius minus!
