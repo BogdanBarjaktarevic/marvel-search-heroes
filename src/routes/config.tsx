@@ -13,5 +13,6 @@ export const router = createBrowserRouter([
     path: "characters/:characterId",
     element: <Character />,
     loader: characterLoader,
+    errorElement: <div>Character not found</div>,
   },
 ]);
