@@ -17,6 +17,8 @@ const SearchCharacters = () => {
     (document.getElementById("q") as HTMLInputElement).value = q;
   }, [q]);
 
+  // console.log(navigation);
+
   const searching =
     navigation.location &&
     new URLSearchParams(navigation.location.search).has("q");
@@ -30,12 +32,6 @@ const SearchCharacters = () => {
 
   return (
     <Form id="search-form" role="search">
-      <label
-        htmlFor="default-search"
-        className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-      >
-        Search
-      </label>
       <div className="relative">
         <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
           <Icon
@@ -47,7 +43,7 @@ const SearchCharacters = () => {
         </div>
         <input
           id="q"
-          aria-label="Search contacts"
+          aria-label="Search characters"
           placeholder="Search characters..."
           type="search"
           name="q"

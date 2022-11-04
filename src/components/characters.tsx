@@ -27,6 +27,7 @@ const Characters = () => {
       className={`grid lg:grid-cols-4 gap-3 grid-rows-5 md:grid-cols-2 grid-rows-10  ${
         isLoading ? "opacity-25" : "opacity-100"
       }`}
+      data-testid="characters-container"
     >
       {characters.map((character) => (
         <Link key={character.id} to={`/characters/${character.id}`}>
